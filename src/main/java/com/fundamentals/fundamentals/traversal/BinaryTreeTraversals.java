@@ -1,4 +1,4 @@
-package com.ebay.fundamentals.traversal;
+package com.fundamentals.fundamentals.traversal;
 
 public class BinaryTreeTraversals {
     

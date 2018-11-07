@@ -1,4 +1,4 @@
-package com.ebay.fundamentals.recursion;
+package com.fundamentals.fundamentals.recursion;
 
 public class SimpleRecursion {
     
