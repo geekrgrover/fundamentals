@@ -1,17 +1,9 @@
-/*
- * Click `Run` to execute the snippet below!
- */
 
-import java.io.*;
-import java.util.*;
 
-/*
- * To execute Java, please define "static void main" on a class
- * named Solution.
- *
- * If you need more classes, simply define them inline.
- */
 
+/**
+* psuedo code
+*/
 class Solution {
   public static void main(String[] args) {
     int[] list = new int[] {2,8,3,6,10,5};
@@ -70,3 +62,58 @@ class Solution {
     return aux;
   }
 }
+/**
+*Working code
+*/
+class Solution {
+  public static void main(String[] args) {
+    int[] list = new int[] {2,8,3,6,10,5};
+    int[] sorted = mergeSort(list, list.length);
+    for (int i: sorted) {
+      System.out.println(i);
+    }
+  }
+
+  public static int[] mergeSort(int[] list, int n) {
+    if(n <=1) {
+      return list;
+    }
+    int mid = n/2;
+    int[] l = new int[mid];
+    int[] r = new int[n-mid];
+    for(int i=0; i< mid; i++) 
+    {
+      l[i] = list[i];
+    }
+    for(int j=mid; j< n; j++) 
+    {
+      r[j-mid] = list[j];
+    }
+    mergeSort(l, mid);
+    mergeSort(r, n-mid);
+    merge(list, l, r, mid, n-mid );
+    return list;
+  }
+
+  private static int[] merge(int[] list, int[] lr, int[] rr, int l, int r) {
+
+    int i =0 , j = 0, k = 0;
+    while(i < l && j < r) {
+      if(lr[i] <= rr[j]) {
+        list[k++] = lr[i++];
+      }
+      else {
+        list[k++] = rr[j++];
+      }
+    } 
+    while (i < l)
+    list[k++] = lr[i++];
+  
+
+    while(j < r) {
+      list[k++] = rr[j++];
+  }
+  return list;
+  }
+}
+
