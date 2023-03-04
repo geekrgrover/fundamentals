@@ -23,7 +23,10 @@ class Solution {
       System.out.println(string);
     }
     int[] list = new int[] {2,8,3,6,10,5};
-    //mergeSort(list);
+    int[] sorted = mergeSort(list);
+    for (int i: sorted) {
+      System.out.println(i);
+    }
   }
 
   public static int[] mergeSort(int[] list) {
@@ -34,47 +37,53 @@ class Solution {
   }
 
   private static int[] doSortAndMerge(int s, int e, int[] list) {
-    if(list.length <=1) {
+    if(s == e) {
       System.out.println("SINGLE Element reached");
       return list;
     }
+      System.out.println("Size of array "+list.length);
     int mid = (s + e)/2;
-    System.out.println(" Mid ", + mid);
+    System.out.println(" Mid " + mid);
     doSortAndMerge(s, mid, list);
     doSortAndMerge(mid+1, e, list);
-    int[] aux = new int[list.length];
+    int[] aux = new int[(e - s)+1];
+
     int k = mid+1;
     int i = s;
     int j = mid+1;
     int auxI = 0;
-
-    while(i < mid && j < e ) {
-      System.out.println("In merge portion");
+    System.out.println("Size of aux array "+aux.length);
+    while(i <= mid && j <= e ) {
+      System.out.println("In merge portion aux indx "+auxI);
        if(list[i] < list[j]) {
+        System.out.println("adding left "+auxI);
         aux[auxI] = list[i];
-        s++;
-        auxI++;
+        i++;
       }
-      if(list[s] >= list[k]) {
+      if(list[i] >= list[j]) {
+        System.out.println("adding right "+auxI);
         aux[auxI] = list[k];
-        k++;
-        auxI++;
+        j++;
       }
-
+     auxI++;
     }
   if(i <= mid) {
+    int xi = auxI;
+    System.out.println("adding left reminder "+auxI);
     for(int d = i; d<=mid; d++) {
-     aux[auxI] = list[d];
-     auxI++;
+     aux[xi] = list[d];
+     xi++;
     }
   }
     
     if(j <= e) {
+      int xi = auxI;
+      System.out.println("adding right reminder "+auxI);
       for(int d = i; d<=e; d++) {
-        aux[auxI] = list[d];
-        auxI++;     
+        aux[xi] = list[d];
+        xi++;     
       }
     }    
-    return list;
+    return aux;
   }
 }
