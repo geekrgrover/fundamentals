@@ -1,4 +1,8 @@
-class Solution {
+package com.fundamentals.fundamentals.simpleCodingPractice;
+
+import java.util.Arrays;
+
+class TwoSumProb {
     public int[] twoSum(int[] nums, int target) {
         if(nums!= null && nums.length >= 2)
         {

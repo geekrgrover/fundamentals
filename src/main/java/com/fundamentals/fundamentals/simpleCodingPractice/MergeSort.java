@@ -4,7 +4,7 @@
 /**
 * psuedo code
 */
-class Solution {
+class MergeSort {
   public static void main(String[] args) {
     int[] list = new int[] {2,8,3,6,10,5};
     int[] sorted = mergeSort(list);
@@ -65,7 +65,7 @@ class Solution {
 /**
 *Working code
 */
-class Solution {
+class WorkingSolution {
   public static void main(String[] args) {
     int[] list = new int[] {2,8,3,6,10,5};
     int[] sorted = mergeSort(list, list.length);

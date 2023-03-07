@@ -20,7 +20,7 @@ public class MyFirstGraph {
         for (int i = 0; i < intArray.length; i++) {
             intArray[i] = i + 1;
         }
-        addElement(intArray);
+        addElement(10, intArray);
         for (int j = 0; j < vertex.size(); j++) {
             System.out.print("The vertex " + j);
             System.out.print("-->");
