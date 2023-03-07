@@ -5,7 +5,7 @@ package com.fundamentals.fundamentals.simpleCodingPractice;
  * Best case time complexity - O(n(log n))
  * Worst case time complexity - O(n^2) (sorted input)
  * space complexity - O(log(n))
- * Not an In Place algorithm
+ * An In Place algorithm
  */
 public class QuickSort {
 
@@ -18,8 +18,19 @@ public class QuickSort {
     }
 
     public static void qSort(int[] list, int start, int end) {
+        /**
+         * Leaf node condition. No work needs to be done for this sub-array
+         */
+        if (start >= end) {
+            return;
+        }
+        /**
+         * Intermittant node condition where work happens.
+         * The 'if clause' can be omitted as log as leaf node condition is specified and vice versa
+         */
         if (start < end) {
-            int index = qSortHelper(list, start, end);
+            int index = qSortHelper(list, start, end); // The upfront partitioning
+            //recursion - The solving part
             qSort(list, start, index - 1);
             qSort(list, index + 1, end);
         }
@@ -44,12 +55,13 @@ public class QuickSort {
             }
         }
         /** TIP: Here start is always the pivot. Ideally pivot can be picked arbitrarily using
-         * randomization on array indices.
+         * randomization on array indices and then swapped that with the 'start' index.
          * This can save the algorithm from predictability and provides protection from getting used against
          * worst case data.
          */
         // Swap pivot with the left pointer to keep smaller values to the left of pivot and bigger to the right
         swap(start, smaller, list);
+        // return the original position of the pivot
         return smaller;
     }
 
