@@ -3,52 +3,66 @@ package com.fundamentals.fundamentals.simpleCodingPractice;
 public class HeapSort {
 
     public static void main(String[] args) {
-        int arr[] = {12, 11, 13, 5, 6, 7};
-        //int arr[] = {1,1,1,1,1,1,1,1,1,1,1,1};
-        sortHeap(arr);
+        int arr[] = {12, 11, 13, 5, 6, 7, -1, 88, 0, 11, -7};
+        sort(arr);
+
+
     }
 
-    public static void sortHeap(int[] arr) {
+    /**
+     * Heap sort
+     *
+     * @param arr Input
+     */
+    public static void sort(int[] arr) {
         int length = arr.length;
-        // create a binary max heap with the input
-        for (int i = (length/2 - 1); i >= 0; i--) {
+        // sort
+        for (int i = length / 2 - 1; i >= 0; i--) {
             heapify(arr, length, i);
         }
-        // do max extraction and re-heapify
+        /** max extract and re-heapify once max is extracted,
+         this time with array size one less */
         for (int i = length - 1; i >= 0; i--) {
-            // remove the current root to the farthest leaf node
+            // swapping current root at index 0 with the left most leaf node - last element of the array
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
-            // call heapify with the heap - node where root was added
-            // root index is zero because root is always at index 0, moved now from farthest left node
+            /** heapify again with the array of reduced length
+             ( extracted roots added at the end of the array are not included )*/
             heapify(arr, i, 0);
         }
-        printArr(arr);
-    }
 
-    public static void heapify(int[] arr, int length, int rootIndex) {
-        int leftIndex = rootIndex * 2 + 1;
-        int rightIndex = rootIndex * 2 + 2;
-        int largeIndex = rootIndex;
-
-        if (leftIndex < length && arr[largeIndex] < arr[leftIndex]) {
-            largeIndex = leftIndex;
-        }
-        if (rightIndex < length && arr[largeIndex] < arr[rightIndex]) {
-            largeIndex = rightIndex;
-        }
-        if (rootIndex != largeIndex) {
-            int swap = arr[rootIndex];
-            arr[rootIndex] = arr[largeIndex];
-            arr[largeIndex] = swap;
-            heapify(arr, length, largeIndex);
-        }
-    }
-
-    private static void printArr(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.println(arr[i]);
         }
+    }
+
+    /**
+     * Simple logic - if the largest value is not at the helm, replace helm with largest child.
+     * Repeat the operation for the whole tree
+     *
+     * @param arr
+     * @param length
+     * @param rootIndex
+     */
+    public static void heapify(int[] arr, int length, int rootIndex) {
+        int left = rootIndex * 2 + 1;
+        int right = rootIndex * 2 + 2;
+        int largestIndex = rootIndex;
+
+        if (left < length && arr[largestIndex] < arr[left]) {
+            largestIndex = left;
+        }
+        if (right < length && arr[largestIndex] < arr[right]) {
+            largestIndex = right;
+        }
+        if (rootIndex != largestIndex) {
+            int temp = arr[rootIndex];
+            arr[rootIndex] = arr[largestIndex];
+            arr[largestIndex] = temp;
+            // recursively heapify subtree if affected
+            heapify(arr, length, largestIndex);
+        }
+
     }
 }
