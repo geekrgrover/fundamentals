@@ -31,6 +31,11 @@ public class TreeOps {
 
         minimumElementRecursion(n);
         maximumElementRecursion(n);
+        System.out.println("Predecessor of 10 :"+ predecessor(n, n).getKey());
+        System.out.println("Successor of 10 :"+ successor(n, n).getKey());
+
+        Node newRoot = deleteNode(n, 12);
+        System.out.println("New root after deleting 12: "+newRoot.getKey() );
 
 
     }
@@ -226,7 +231,81 @@ public class TreeOps {
             return ancestor;
         }
     }
+    public static Node deleteNode(Node root, int k) {
+        if (root == null ) {
+            return root;
+        }
+        Node curr = root;
+        Node previous = null;
+        while(curr.getKey() != k) { // find the node to be deleted in the tree
+            if(curr.getKey() < k) {
+                previous = curr;
+                curr = curr.getRight();
+            }
+            else {
+                previous = curr;
+                curr = curr.getLeft();
+            }
+        }
+        if(curr.getRight() == null && curr.getLeft() == null) { // leaf node
+            System.out.println("deleting leaf node");
+            if(previous == null ) { // single node tree or node to be deleted is the root node
+                return null;
+            }
+            if (previous.getRight().getKey() == k)
+            {
+                curr.setRight(null);
+            }
+            else if(previous.getLeft().getKey() == k) {
+                curr.setLeft(null);
+            }
+        } else if (curr.getRight() != null || curr.getLeft()!= null) { //node with one subtree
+            System.out.println("deleting node with 1 subtrees");
+            if(curr.getLeft()!= null) { // have a left subtree
+                if(previous == null) { // the node to be deleted is root itself and root has left subtree
+                    root = curr.getLeft();
+                    return root;
+                }
+                else if (curr == previous.getLeft()) {
+                    previous.setLeft(curr.getLeft());
+                } else {
+                    previous.setRight(curr.getLeft());
+                }
 
+            } else if(curr.getRight()!= null) {// have a right subtree
+                if(previous == null) { // the node to be deleted is root itself and root has left subtree
+                    root = curr.getRight();
+                    return root;
+                }
+                else if(curr == previous.getLeft()) {
+                    previous.setLeft(curr.getRight());
+                } else {
+                    previous.setRight(curr.getRight());
+                }
+
+            }
+
+        } else if (curr.getRight()!= null && curr.getLeft()!= null) { // node has both left and right subtrees
+            // 1. Find the success or or predecessor - One of these nodes have to replace the node to be deleted. Going with successor here
+            System.out.println("deleting node with 2 subtrees");
+            Node successor = curr.getRight(); // right subtree
+            Node subprevious = curr;
+            while(successor!= null) {
+                if(successor.getLeft()!= null) {
+                    subprevious = successor;
+                    successor = successor.getLeft(); // left most element of right subtree
+                }
+            }
+            curr.setKey(successor.getKey()); // Keep the node at its position and relace the key with the key of successor
+            if(subprevious.getLeft() == successor) { // delete the successor after connecting any subtrees success has (possible right subtree ) with successor's parent node. If none exist, parent node will point to null
+                subprevious.setLeft(successor.getRight());
+            }
+            else if(subprevious.getRight() == successor) { // not sure whether this will ever be true
+                subprevious.setRight(successor.getRight());
+            }
+        }
+        return root;
+    }
 
 }// end of class
 

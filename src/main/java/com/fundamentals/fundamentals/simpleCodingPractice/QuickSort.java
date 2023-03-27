@@ -10,8 +10,8 @@ package com.fundamentals.fundamentals.simpleCodingPractice;
 public class QuickSort {
 
     public static void main(String[] args) {
-       // int[] list = new int[]{4, 2, 8, 7, 1, 3, 5, 6};
-        int[] list = new int[]{1, 1, 1, 1, 1};
+        int[] list = new int[]{4, 2, 8, 7, 1, 3, 5, 6};
+        //int[] list = new int[]{1, 1, 1, 1, 1};
 
         qSort(list, 0, list.length - 1);
         for (int i = 0; i < list.length; i++) {
